@@ -5,47 +5,36 @@ import Banner from './components/Banner';
 import CourseList from './components/CourseList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useJsonQuery } from './utilities/fetch';
 
 
-const schedule = {
-  "title": "CS Courses for 2023-2024",
-  "Courses": {
-    "CS310": {
-      "Term": "Fall",
-      "Number": "310",
-      "Meets": "TT 2:00-3:20",
-      "Title": "Scalable Software Architecture"
-    },
+const Main = () => {
 
-      "CS327": {
-      "Term": "Fall",
-      "Number": "327",
-      "Meets": "MWF 8:00-8:50",
-      "Title": "Generative Methods"
-    },
+  const [data, isLoading, error] = useJsonQuery("https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php");
 
-    "CS330": {
-      "Term": "Fall",
-      "Number": "330",
-      "Meets": "TT 3:30-4:50",
-      "Title": "Human Computer Interaction"
-    },
+  if (error) return <h1>Error loading user data: {`${error}`}</h1>;
+  if (isLoading) return <h1>Loading user data...</h1>;
+  if (!data) return <h1>No user data found</h1>;
 
-    "CS392": {
-      "Term": "Fall",
-      "Number": "392",
-      "Meets": "MWF 3:00-3:50",
-      "Title": "Rapid Prototyping for Software Innovation"
-    }
-  }
-};
+  return (
+    <div className="main">
+      <Banner title={data.title}/>
+      <CourseList Courses={data.courses}/>
+    </div>
+  )
+}
+
+const queryClient = new QueryClient();
+
 
 const App = () => {
   return(
-    <div className="container">
-      <Banner title={schedule.title} />
-      <CourseList Courses={schedule.Courses} />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className='container'>
+        <Main/>
+      </div>
+    </QueryClientProvider>
   )
 };
 
