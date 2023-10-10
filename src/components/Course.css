@@ -1,0 +1,10 @@
+.course {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+  }
+
+  .course .selected {
+    background-color:lemonchiffon;
+    color: green;
+  }
