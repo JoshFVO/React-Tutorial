@@ -13,6 +13,7 @@ const CoursePage = ({selection, courses}) => {
     );
   }
 
+  console.log(selected)
   return (
     <CourseList selection={selection} courses={courses} selected={selected} toggleSelected={toggleSelected}/>
   );
