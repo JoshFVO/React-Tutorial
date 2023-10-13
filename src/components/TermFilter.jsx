@@ -39,7 +39,7 @@ const Term = ({selection}) => (
 
 const TermPage = ({courses}) => {
     const [selection, setSelection] = useState(() => Object.keys(terms)[0]);
-    console.log(courses)
+    
     return (
         <div>
             <TermSelector selection={selection} setSelection={setSelection} />

@@ -8,7 +8,7 @@ const CourseList = ({selection, courses, selected, toggleSelected}) => (
     <div className="course-list">
         {Object.entries(courses)
         .filter(([id, course]) => course.term === selection)
-        .map(([id, course]) => (<Course key={id} course={course} selected={selected} toggleSelected={toggleSelected}/>))} 
+        .map(([id, course]) => (<Course key={id} id={id} course={course} selected={selected} toggleSelected={toggleSelected}/>))} 
     </div>
     
 );
